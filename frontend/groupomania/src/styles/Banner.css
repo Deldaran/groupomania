@@ -1,0 +1,14 @@
+.grp-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    text-align: right;
+    border-bottom: solid 3px black;
+    padding-right: 100px;
+}
+.grp-logo{
+    width: 300px;
+    height: 250px;
+    text-align: left;
+}
