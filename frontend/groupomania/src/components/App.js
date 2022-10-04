@@ -1,8 +1,12 @@
 import Banner from "./Banner";
-
+import Body from "./Body";
 
 function App(){
-   return (<Banner/>
+   return (
+   <div>
+      <Banner/>
+      <Body/>
+   </div>
    )
 }
 

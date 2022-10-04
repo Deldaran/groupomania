@@ -1,4 +1,6 @@
 import '../styles/Body.css'
+import '../styles/PostList.css'
+import PostList from './PostList';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +18,7 @@ function Body() {
                 </div>
             </form>
             <div id='grp-separate-ligne'></div>
+            <PostList/>
         </div>
     )
 }

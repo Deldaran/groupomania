@@ -1,0 +1,25 @@
+.grp-post{
+    display: flex;
+    flex-direction:column;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.grp-post-image{
+    width: 20%;
+    height: 150px;
+    border: solid black 2px;
+    margin-top: 6%;
+}
+.grp-post-block{
+    flex-direction: row;
+    
+}
+.grp-post-text-area{
+    border: solid black 2px;
+    width: 70%;
+    height: 150px;
+    margin-top: 6%;
+    resize: none;
+    background-color: #f8f8f8;
+
+}
