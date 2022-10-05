@@ -1,6 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const postRoutes = require('./routes/posts');
 
 const app = express();
+app.use(express.json());
+const path = require('path');
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -8,6 +12,14 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
+
+  //Permet la connection au server Mongodb
+mongoose.connect('mongodb+srv://JorisFerrari:Yj32nx75@groupomania.np7s1gy.mongodb.net/test',
+{ useNewUrlParser: true,
+  useUnifiedTopology: true })
+.then(() => console.log('Connexion à MongoDB réussie !'))
+.catch(() => console.log('Connexion à MongoDB échouée !'));
+
 
 app.use('/api/post', (req, res, next) => {
     const post = [
@@ -27,4 +39,6 @@ app.use('/api/post', (req, res, next) => {
     res.status(200).json(post);
   });
 
+  app.use('/api/post', postRoutes);
+  app.use('/images', express.static(path.join(__dirname, 'images')));
 module.exports = app;

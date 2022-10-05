@@ -11,9 +11,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "create-react-app": "^1.2.1",
+    "i": "^0.3.7",
     "jsx": "^0.9.89",
+    "npm": "^8.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },

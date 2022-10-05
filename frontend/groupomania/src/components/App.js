@@ -1,10 +1,13 @@
 import Banner from "./Banner";
+import UserAcount from "./Banner"
 import Body from "./Body";
 
 function App(){
    return (
    <div>
-      <Banner/>
+      <div>
+         <Banner/>
+      </div>
       <Body/>
    </div>
    )
