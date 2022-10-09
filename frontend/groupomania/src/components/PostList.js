@@ -18,7 +18,7 @@ fetch("http://localhost:3000/api/post")
                                                         </div>`
     }
 })
-.catch(error => {error})
+.catch(error => {"error"})
 
 function PostList(){
     return(

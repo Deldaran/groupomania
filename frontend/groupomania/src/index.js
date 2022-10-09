@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter, BrowserRouter as Router, Routes , Route } from 'react-router-dom'
 import './styles/index.css';
 import App from './components/App';
+import {Login, SignUp} from "./pages/Login"
 
 
 
@@ -10,12 +11,13 @@ import App from './components/App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <router>
-      <route exact path="/">
-        <App />
-      </route>
-    
-    </router>
+    <BrowserRouter>
+      <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="Login" element={<Login />}/>
+      <Route path="SignUp" element={<SignUp/>}/>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
