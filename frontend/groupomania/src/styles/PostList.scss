@@ -1,0 +1,54 @@
+.grp-post{
+    display: flex;
+    flex-direction:column;
+    margin-left: 10%;
+    margin-right: 2%;
+    &-block{
+        display: flex;
+        flex-direction: column;
+        &-1{
+            display: flex;
+            text-align:left;
+            width: 100%;
+            height: 200px;
+            &-image{
+                width: 20%;
+                height: 150px;
+                margin-top: 6%;
+            }
+            &-text-area{
+                width: 70%;
+                height: 150px;
+                margin-top: 6%;
+                resize: none;
+                background-color: #f8f8f8;
+            
+            }
+        }
+        &-2{
+            text-align:left;
+            &-btn-like{
+                border: none;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                box-shadow: inset 0px 0px 2px;
+                background-color: #FD2D01;
+            }
+            &-btn-dislike{
+                border: none;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                box-shadow: inset 0px 0px 2px;
+                background-color: #FD2D01;
+            }
+            &-btn-custom{
+                border: none;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                box-shadow: inset 0px 0px 2px;
+                background-color: #FD2D01;
+            }
+        }
+        
+    }
+}
