@@ -3,16 +3,33 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
 const AuthContext = createContext();
+async function loginUser(credentials){
+  return fetch('http://localhost:3000/auth/login',{
+      method : 'POST',
+      headers:{'content-Type':'application/json'},
+      body: JSON.stringify(credentials)
+  })
+  .then(res =>  res.json())
+
+}
 
 export const AuthProvider = ({ children }) => {
+  
   const [user, setUser] = useLocalStorage("user", null);
   const navigate = useNavigate();
 
   const login = async (data) => {
-    setUser(data);
-    navigate("/dashboard/list", { replace: true });
+    let restoken = await loginUser(data)
+    data={data,restoken}
+    if(restoken== "false"){
+      setUser(null)
+        navigate("/", { replace: true });
+      }
+      else{
+        setUser((data));
+      navigate("/dashboard/list");
+      }
   };
-
   const logout = () => {
     setUser(null);
     navigate("/", { replace: true });
@@ -26,7 +43,6 @@ export const AuthProvider = ({ children }) => {
     }),
     [user]
   );
-
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
