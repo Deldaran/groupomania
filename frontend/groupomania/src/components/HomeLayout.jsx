@@ -11,9 +11,7 @@ export const HomeLayout = () => {
 
   return (
     <div>
-        pages={[
-          { label: "Login", path: "/" }
-        ]}
+       
       {outlet}
     </div>
   );

@@ -6,14 +6,12 @@ export const ProtectedLayout = () => {
   const outlet = useOutlet();
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return (
     <div>
-        pages={[
-          { label: "post", path: "list" }
-        ]}
+        
       {outlet}
     </div>
   );

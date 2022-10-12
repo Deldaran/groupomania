@@ -19,19 +19,19 @@ fetch("http://localhost:3000/api/post")
 //     }
 // })
 .catch(error => {"error"})
-function post() {
-    const names =[]
-    const studentDetails = []
-    studentDetails.forEach((data) => {
-        names.push(<h3 className='student_name'>{data}</h3>)
-    })
+// function post() {
+//     const names =[]
+//     const studentDetails = []
+//     studentDetails.forEach((data) => {
+//         names.push(<h3 className='student_name'>{data}</h3>)
+//     })
 
-    return (
-        <div className='container'>
-        {names}
-        </div>
-    )
-}
+//     return (
+//         <div className='container'>
+//         {names}
+//         </div>
+//     )
+// }
 
 function PostList(){
     return(
