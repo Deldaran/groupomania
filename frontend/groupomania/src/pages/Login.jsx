@@ -4,7 +4,7 @@ import "../styles/Log.scss"
 import { useState, useEffect } from "react"
 import PropTypes from 'prop-types'
 import logo from '../assets/icon-left-font.png'
-
+import {useAuth} from '../hooks/useAuth'
 async function loginUser(credentials){
     return fetch('http://localhost:3000/auth/login',{
         method : 'POST',
@@ -29,24 +29,33 @@ async function signUpUser(credentials){
 }
 export function Login({setToken}) {
     
-    const [email,setEmail] = useState();
-    const [password,setPassword] = useState();
-    const handleSubmit = async e => {
-        e.preventDefault();
-        const token = await loginUser({
-            email,
-            password
+    // const [email,setEmail] = useState();
+    // const [password,setPassword] = useState();
+    // const handleSubmit = async e => {
+    //     e.preventDefault();
+    //     const token = await loginUser({
+    //         email,
+    //         password
+    //     });
+    //     setToken(token);
+    //   }
+    const { login } = useAuth();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        login({
+          email: data.get("email"),
+          password: data.get("password")
         });
-        setToken(token);
-      }
+      };
     return (
             
             <div className="grp-account">
                 <div className="grp-logo"><img src = {logo} alt= 'groupomania' className='grp-image-logo' /></div>
                 <h1>Connexion</h1>
                 <form className="grp-account-form" onSubmit={handleSubmit}>
-                    <input className="grp-account-form-input" type="email" onChange={(e) =>setEmail(e.target.value)} placeholder="entrer email"/>
-                    <input className="grp-account-form-input" type="password" onChange={(e) =>setPassword(e.target.value)} placeholder="entrer le mots de passe" />
+                    <input className="grp-account-form-input" type="email"  placeholder="entrer email"/>
+                    <input className="grp-account-form-input" type="password" placeholder="entrer le mots de passe" />
                     <div className="grp-account-form-divbtn">
                         <button className="grp-account-form-btn" type="submit">Login</button>
                         <button className="grp-account-form-btn" ><Link to="/SignUp">SignUp</Link></button>
@@ -78,7 +87,7 @@ export function SignUp(setToken){
                 <input id="grp-account-form-password" type="password" onChange={(e) =>setPassword(e.target.value)} placeholder="entrer le mots de passe" />
                 <div className="grp-account-form-divbtn">
                     <button className="grp-account-form-btn" type="submit">SignUp</button>
-                    <button className="grp-account-form-btn" ><Link className="grp-account-form-btn" to="/login">Login</Link></button>
+                    <button className="grp-account-form-btn" ><Link className="grp-account-form-btn" to="/">Login</Link></button>
                 </div>
             </form>
         </div>
@@ -86,6 +95,4 @@ export function SignUp(setToken){
     )
 }
 
-Login.propTypes={
-    setToken : PropTypes.func.isRequired
-}
+

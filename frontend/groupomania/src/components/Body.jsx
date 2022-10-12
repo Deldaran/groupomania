@@ -6,9 +6,9 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { Login } from '../pages/Login';
 import Banner from './Banner'
+import {useAuth} from "../hooks/useAuth"
 
 library.add(faPaperclip);
-
 //créer la partie centrale et le formulaire
 function Body() {
     return(
