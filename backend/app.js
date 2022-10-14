@@ -31,13 +31,13 @@ app.use('/api/post', (req, res, next) => {
     const post = [
       {
         Id: 1,
-        postImage: "../assets/Gull_portrait_ca_usa.jpg",
+        postImage: "./assets/Gull_portrait_ca_usa.jpg",
         postImageDescription: 'description image',
         postTextarea: 'bienvenue voici mon text'
       },
       {
-        Id: 1,
-        postImage: "../assets/Gull_portrait_ca_usa.jpg",
+        Id: 2,
+        postImage: "./assets/Gull_portrait_ca_usa.jpg",
         postImageDescription: 'description image',
         postTextarea: 'bienvenue voici mon 2eme text'
       },

@@ -13,7 +13,7 @@ exports.signup = (req, res, next) => {
             password: hash
         });
         user.save()
-        .then(() => res.status(201).json({message: 'utilisateur créé !'}))
+        .then(() => res.status(201).json("true"))
         .catch(error => {
             res.status(400).json({error})});
     })

@@ -1,7 +1,7 @@
 import Banner from "./Banner";
 import { Login, SignUp} from "../pages/Login";
 import Body from "./Body";
-import { BrowserRouter as Router, Routes , Route, Navigate,useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes , Route } from 'react-router-dom'
 import { HomeLayout } from "./HomeLayout";
 import { ProtectedLayout } from "./ProtectdLayout"
 

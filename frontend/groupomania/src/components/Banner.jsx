@@ -1,7 +1,5 @@
 import '../styles/Banner.scss'
 import logo from '../assets/icon-left-font.png'
-import { Route , Navigate, Link} from 'react-router-dom';
-import { Login } from '../pages/Login';
 import { useAuth } from "../hooks/useAuth";
 
 
