@@ -41,6 +41,7 @@ exports.login = (req, res, next) => {
                             '@611tuazvBLE',
                             {expiresIn:'24h'}
                         )
+                        
                     });
                 }
             })

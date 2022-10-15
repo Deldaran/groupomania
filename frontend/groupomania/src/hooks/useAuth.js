@@ -32,13 +32,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (data) => {
     let restoken = await loginUser(data)
-    data={data,restoken}
+    data={restoken}
     if(restoken === "false"){
       setUser(null)
         navigate("/", { replace: true });
       }
       else{
-        setUser((data));
+        setUser((restoken));
       navigate("/dashboard/list");
       }
   };

@@ -37,12 +37,26 @@ import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 //     )
 // }
 
+
+
+
 function PostList(){
    const [post,setPost] = useState();
     const getApiData = async ()=>{
-        const response = await fetch("http://localhost:3000/api/post")
+    const user = JSON.parse(localStorage.getItem('user'))
+    const postData = {
+        userId: user.userId,
+        token: user.token,
+    }
+        const response = await fetch("http://localhost:3000/post",{
+            method:'GET',
+            headers:{
+                'content-Type':'application/json',
+                'Authorization': 'Bearer ' + postData.token
+            }
+        })
         .then((response => response.json()));
-        setPost(response)
+        setPost(response);
     }
     useEffect(() => {
         getApiData();
@@ -50,10 +64,10 @@ function PostList(){
 return(
     <div className='container'>
         {post && post.map((post)=>
-        <div className="grp-post-block" key={post.Id}>
+        <div className="grp-post-block" key={post._id}>
             <div className="grp-post-block-1">
                 <img className='grp-post-block-1-image' src={image} alt={post.postImageDescription}/>
-                <p className='grp-post-block-1-text-area'>postTextarea</p>
+                <p className='grp-post-block-1-text-area'>{post.postTextarea}</p>
             </div>
             <div className="grp-post-block-2">
                 <button className="grp-post-block-2-btn-like"><FontAwesomeIcon icon={faThumbsUp} />like</button>
