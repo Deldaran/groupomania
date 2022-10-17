@@ -14,25 +14,33 @@ library.add(faPaperclip);
 //créer la partie centrale et le formulaire
 function Body() {
     const [data, setData] = useState('');
-
+    const [image,setImage]= useState('');
     const handleDataChange = event => {
       setData(event.target.value);
     };
+    const handleImageChange = event => {
+        setImage({
+            image: event.target.files[0]
+        })
+    }
     const creatpostData = async()=>{
+        const formData = new FormData();
+        formData.append("file", image.image)
         const user = JSON.parse(localStorage.getItem('user'))
         const postData = {
             userId: user.userId,
             token: user.token,
-            postTextarea: data
+            postTextarea: data,
         }
+        formData.append("data",JSON.stringify(postData))
         try{
             const res = await fetch('http://localhost:3000/post',{
                 method: 'POST',
                 headers:{
-                    'content-Type':'application/json',
+                    
                     'Authorization': 'Bearer ' + postData.token
                 },
-                body: JSON.stringify(postData)
+                body: formData
                 });
                 
         }
@@ -42,10 +50,13 @@ function Body() {
         <div>
             <Banner/>
             <div className='grp-body'>
-                <form className='grp-body-post'>
+                <form className='grp-body-post' encType='multipart/form-data'  >
                     <textarea className='grp-body-post-text'onChange={handleDataChange} name='grp-body-post-text' placeholder='écriver votre post'/>
                     <div className='grp-body-btn'>
-                        <button className='grp-body-btn-post'><FontAwesomeIcon icon="fa-solid fa-paperclip" />insérer une image</button>
+                        <label className='grp-body-btn-file'>
+                            insérer image
+                            <input  className='grp-body-btn-file-upload' type="file" onInput={handleImageChange} />
+                        </label>
                         <button className='grp-body-btn-post' onClick={creatpostData} >Poster</button>
                     </div>
                 </form>

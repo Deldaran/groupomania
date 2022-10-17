@@ -10,7 +10,7 @@ const { logout} = useAuth();
                 <img src = {logo} alt= 'groupomania' className='grp-banner-logo' />
                 <div className='grp-banner-compte'>
                     <h1>Compte</h1>
-                    <button onClick={logout} className='grp-banner-compte-btn'>Deconnecter vous</button>
+                    <button onClick={logout} className='grp-banner-compte-btn'>Deconnectez-vous</button>
                 </div>
             </div>
         )
