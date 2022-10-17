@@ -27,24 +27,6 @@ mongoose.connect('mongodb+srv://JorisFerrari:Yj32nx75@groupomania.np7s1gy.mongod
 .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-app.use('/api/post', (req, res, next) => {
-    const post = [
-      {
-        Id: 1,
-        postImage: "./assets/Gull_portrait_ca_usa.jpg",
-        postImageDescription: 'description image',
-        postTextarea: 'bienvenue voici mon text'
-      },
-      {
-        Id: 2,
-        postImage: "./assets/Gull_portrait_ca_usa.jpg",
-        postImageDescription: 'description image',
-        postTextarea: 'bienvenue voici mon 2eme text'
-      },
-    ];
-    res.status(200).json(post);
-  });
-
   app.use('/post', postRoutes);
   app.use('/auth', userRoutes);
   app.use('/images', express.static(path.join(__dirname, 'images')));

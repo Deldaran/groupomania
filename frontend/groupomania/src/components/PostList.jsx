@@ -8,6 +8,7 @@ import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 
 function PostList(){
    const [post,setPost] = useState();
+   const [textAreaData,setTextarea] = useState();
    const user = JSON.parse(localStorage.getItem('user'))
    const postData = {
     userId: user.userId,
@@ -24,13 +25,12 @@ function PostList(){
         })
         .then((response => response.json()))
         setPost(response);
-        console.log(response)
     }
    
 
-      const deleteApiData = async (e)=>{
+    const deleteApiData = async (e)=>{
         e.preventDefault()
-        let searchItemIndex = parseInt(e.target.value, 10)
+        const searchItemIndex = parseInt(e.target.value, 10)
         const Data = {
             userId: user.userId,
             token: user.token,
@@ -44,9 +44,30 @@ function PostList(){
         },
         body: JSON.stringify(Data)
         })
-    .then((res => res.json));
-    window.location.reload();
+        .then((res => res.json));
+        window.location.reload();
     }
+    const handleDataChange = event => {
+        setTextarea(event.target.value);
+      };
+    const customApiData = async (e)=> {
+        const customData={
+            postTextarea: textAreaData
+
+        }
+        const index = parseInt(e.target.value,10)
+        console.log(index)
+        await fetch(`http://localhost:3000/post/:`+ post[index]._id,{
+            method:"PUT",
+            headers:{
+                'content-Type': 'application/json',
+                'Authorization': 'Bearer ' + postData.token,
+            },
+            body: JSON.stringify(customData)
+        })
+    }
+
+
 useEffect(() => {
     getApiData();
   }, []);
@@ -56,7 +77,7 @@ return(
         <div className="grp-post-block" key={post._id}>
             <div className="grp-post-block-1">
                 <img className='grp-post-block-1-image' src={post.postImage} alt={post.postImageDescription}/>
-                <p className='grp-post-block-1-text-area'>{post.postTextarea}</p>
+                <p className='grp-post-block-1-text-area' onChange={handleDataChange}>{post.postTextarea}</p>
             </div>
             <div className="grp-post-block-2">
                 <div className="grp-post-block-2-btn-block-1">
@@ -64,7 +85,7 @@ return(
                         <button className="grp-post-block-2-btn-dislike">j'aime pas</button>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">
-                        <button className="grp-post-block-2-btn-custom">modifier</button>
+                        <button className="grp-post-block-2-btn-custom"onClick={customApiData}value={index}>modifier</button>
                         <button className='grp-post-block-2-btn-delete' onClick={deleteApiData} value={index}>supprimer</button>
                 </div>
             </div>
