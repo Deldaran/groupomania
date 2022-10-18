@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react'
 import '../styles/PostList.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
+import {faThumbsDown, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 
 function PostList(){
@@ -62,7 +62,7 @@ return(
             <div className="grp-post-block-2">
                 <div className="grp-post-block-2-btn-block-1">
                         <button className="grp-post-block-2-btn-like"><FontAwesomeIcon icon={faThumbsUp} />J'aime</button>
-                        <button className="grp-post-block-2-btn-dislike">j'aime pas</button>
+                        <button className="grp-post-block-2-btn-dislike"><FontAwesomeIcon icon={faThumbsDown} />j'aime pas</button>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">
                         <button className="grp-post-block-2-btn-custom"><Link className="grp-account-form-btn" to={"/dashboard/listmodify?"+(post._id)}>modifier</Link></button>
