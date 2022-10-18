@@ -1,5 +1,6 @@
 import Banner from "./Banner";
 import { Login, SignUp} from "../pages/Login";
+import {Modify} from "../pages/Modify"
 import Body from "./Body";
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom'
 import { HomeLayout } from "./HomeLayout";
@@ -15,6 +16,7 @@ export default function App(){
                   
                   <Route path="/dashboard" element={<ProtectedLayout />}>
                         <Route path="list" element={(<Banner/>,<Body/>)}/>
+                        <Route path="listmodify" element={(<Banner/>,<Modify/>)}/>
                   </Route>
                </Routes>
       )

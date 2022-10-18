@@ -22,7 +22,9 @@ function Body() {
         setImage({
             image: event.target.files[0]
         })
+        
     }
+    console.log(image)
     const creatpostData = async()=>{
         const formData = new FormData();
         formData.append("file", image.image)
@@ -37,7 +39,6 @@ function Body() {
             const res = await fetch('http://localhost:3000/post',{
                 method: 'POST',
                 headers:{
-                    
                     'Authorization': 'Bearer ' + postData.token
                 },
                 body: formData

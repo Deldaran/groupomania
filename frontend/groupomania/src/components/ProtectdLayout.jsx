@@ -5,13 +5,12 @@ export const ProtectedLayout = () => {
   const { user } = useAuth();
   const outlet = useOutlet();
 
-  if (!user) {
+  if (!user ) {
     return <Navigate to="/" />;
   }
 
   return (
     <div>
-        
       {outlet}
     </div>
   );

@@ -19,6 +19,20 @@ exports.createPost = (req, res, next)=>{
     .then(() => { res.status(201).json({message: 'post envoyé !'})})
     .catch(error => { res.status(400).json( { error })})
  };
+ exports.getOnePost = (req, res, next) => {
+  Post.findOne({ _id :req.params.id.replace(':','')})
+  .then(
+    (thing) => {
+      res.status(200).json(thing);
+    }
+  ).catch(
+    (error) => {
+      res.status(404).json({
+        error: error
+      });
+    }
+  );
+};
  
  exports.getAllPosts = (req, res, next) => {
     Post.find().then(
@@ -40,6 +54,7 @@ exports.createPost = (req, res, next)=>{
             res.status(401).json({message: 'Not authorized'});
         } else {
             const filename = thing.postImage.split('/images/')[1];
+            //problème de chemin 
             fs.unlink(`images/${filename}`, async () => {
                 await Post.deleteOne({ _id :req.params.id.replace(':','')})
                     .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
@@ -52,20 +67,18 @@ exports.createPost = (req, res, next)=>{
     });
   };
   exports.modifyPost = (req, res, next) => {
-    // const thingObject = req.file ? {
-    //     ...JSON.stringify(req.body.thing),
-    //     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    // } : { ...req.body };
-    console.log(req.body)
-    const thingObject = JSON.parse(req.body)
-    
+    const thingObject = req.file ? {
+        ...JSON.parse(req.body.data),
+        postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...req.body.data };
+    console.log(thingObject)
     delete thingObject._userId;
     Post.findOne({_id: req.params.id.replace(':','')})
         .then((thing) => {
             if (thing.userId != req.auth.userId) {
                 res.status(401).json({ message : 'Not authorized'});
             } else {
-                Post.updateOne({ _id: req.params.id})
+                Post.updateOne({ _id: req.params.id.replace(':','')}, { ...thingObject, _id: req.params.id.replace(':','')})
                 .then(() => res.status(200).json({message : 'Objet modifié!'}))
                 .catch(error => res.status(401).json({ error }));
             }
