@@ -7,6 +7,8 @@ import {faThumbsDown, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 
 function PostList(){
+    const [likes, setLikes] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
    const [post,setPost] = useState();
    const [textAreaData,setTextarea] = useState();
    const user = JSON.parse(localStorage.getItem('user'))
@@ -47,6 +49,13 @@ function PostList(){
         .then((res => res.json));
         window.location.reload();
     }
+
+   
+    const handleClick = (e) => {
+    const index = parseInt(e.target.value, 10)
+    const Like = post[index]
+    console.log(Like)
+    }
     
 useEffect(() => {
     getApiData();
@@ -61,8 +70,8 @@ return(
             </div>
             <div className="grp-post-block-2">
                 <div className="grp-post-block-2-btn-block-1">
-                        <button className="grp-post-block-2-btn-like"><FontAwesomeIcon icon={faThumbsUp} />J'aime</button>
-                        <button className="grp-post-block-2-btn-dislike"><FontAwesomeIcon icon={faThumbsDown} />j'aime pas</button>
+                        <button className={`grp-post-block-2-btn-like-${isClicked && 'liked'}`} onClick={handleClick } value={index} ><span>{ ` ${likes}` }</span><FontAwesomeIcon className="grp-post-block-2-btn-like-icon" icon={faThumbsUp} />J'aime</button>
+                        <button className="grp-post-block-2-btn-dislike"><FontAwesomeIcon className="grp-post-block-2-btn-dislike-icon" icon={faThumbsDown} />j'aime pas</button>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">
                         <button className="grp-post-block-2-btn-custom"><Link className="grp-account-form-btn" to={"/dashboard/listmodify?"+(post._id)}>modifier</Link></button>
