@@ -7,7 +7,7 @@ import {faThumbsDown, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 
 function PostList(){
-    const [likes, setLikes] = useState([]);
+    const [likes, setLikes] = useState({});
     const [isClicked, setIsClicked] = useState(false);
    const [post,setPost] = useState();
    const [textAreaData,setTextarea] = useState();
@@ -51,11 +51,21 @@ function PostList(){
     }
 
    
-    const handleClick = (e) => {
+const handleClick = (e) => {
     const index = parseInt(e.target.value, 10)
-    const Like = post[index]
-    console.log(Like)
+    console.log(index)
+    if (!isClicked){
+        setLikes ( { ...likes, [index]: (post[index].likes -1) })
+        
     }
+    else{
+        setLikes ( { ...likes, [index]: (post[index].likes +1) })
+        
+    }
+    setIsClicked(!isClicked)
+    console.log(likes)
+
+}
     
 useEffect(() => {
     getApiData();
@@ -70,7 +80,7 @@ return(
             </div>
             <div className="grp-post-block-2">
                 <div className="grp-post-block-2-btn-block-1">
-                        <button className={`grp-post-block-2-btn-like-${isClicked && 'liked'}`} onClick={handleClick } value={index} ><span>{ ` ${likes}` }</span><FontAwesomeIcon className="grp-post-block-2-btn-like-icon" icon={faThumbsUp} />J'aime</button>
+                        <button className={`grp-post-block-2-btn-like-${isClicked && 'liked'}`} onClick={handleClick} value={index}><span>{ ` ${likes.index}` }</span><FontAwesomeIcon className="grp-post-block-2-btn-like-icon" icon={faThumbsUp} />J'aime</button>
                         <button className="grp-post-block-2-btn-dislike"><FontAwesomeIcon className="grp-post-block-2-btn-dislike-icon" icon={faThumbsDown} />j'aime pas</button>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">
