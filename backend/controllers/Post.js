@@ -10,10 +10,9 @@ exports.createPost = (req, res, next)=>{
         userId: req.auth.userId,
         postImageDescription: 'description',
         postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        isClicked : false,
         likes:0 ,
-        dislikes:0,
         usersLiked:'[]',
-        usersDisliked:'[]'
     });
     post.save()
     .then(() => { res.status(201).json({message: 'post envoyé !'})})
@@ -87,3 +86,43 @@ exports.createPost = (req, res, next)=>{
             res.status(400).json({ error });
         });
  };
+ exports.likePost = (req, res, next) => {
+  const PostId = req.params.id.replace(':','');
+
+  const userId = req.body.userId;
+  const like = req.body.like;
+  const isClicked = req.body.isClicked;
+
+  if (like === 1) {
+    Post.updateOne(
+      { _id: PostId },
+      {
+        $inc: {likes: like },
+        $set: {isClicked : isClicked },
+        $push: { usersLiked: userId },
+      }
+    )
+    
+      .then((post) => res.status(200).json({ message: "Post appréciée" }))
+      .catch((error) => res.status(500).json({ error }));
+  }
+  else {
+    Post.findOne({ _id: PostId })
+      .then((post) => {
+        if (post.usersLiked.includes(userId)) {
+          Post.updateOne(
+            { _id: PostId },
+            { $pull: { usersLiked: userId },
+              $set: {isClicked : !isClicked },
+              $inc: { likes: -1 } 
+              }
+          )
+            .then((Post) => {
+              res.status(200).json({ message: "Post dépréciée" });
+            })
+            .catch((error) => res.status(500).json({ error }));
+        }
+      })
+      .catch((error) => res.status(401).json({ error }));
+  }
+};

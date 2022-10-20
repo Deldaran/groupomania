@@ -8,10 +8,9 @@ const postModel = mongoose.Schema({
     postImage:{type: String, require: true},
     postImageDescription:{type: String,require: true},
     postTextarea:{type: String,require: true},
+    isClicked :{type : Boolean,},
     likes: {type: Number},
-    dislikes:{type: Number},
     usersLiked:{type: [String]},
-    usersDisliked:{type: [String]}
 })
 
 postModel.plugin(MongooseErrors);

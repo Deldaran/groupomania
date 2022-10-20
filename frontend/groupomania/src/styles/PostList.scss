@@ -48,21 +48,21 @@
                 padding-left: 5%;
                 width: 300px;
             }
-            &-btn-like-liked{
-                @include btnStyle();
-                &-icon{
-                    margin-right: 5px;
-                    color: rgb(46, 46, 46) ;
+            &-btn-like{
+                &-false{
+                    @include btnStyle();
+                    &-icon{
+                        margin-right: 5px;
+                    }
                 }
-            }
-            &-btn-dislike{
-                @include btnStyle();
-                margin-left: 5% ;
-                &-icon{
-                    margin-right: 5px;
-                    color: rgb(46, 46, 46) ;
-                    
+                &-liked{
+                    @include btnStyle();
+                    &-icon{
+                        margin-right: 5px;
+                        color: rgb(4, 0, 253) ;
+                    }
                 }
+             
                
             }
             &-btn-block-2{
@@ -73,6 +73,11 @@
             &-btn-custom{
                 @include btnStyle();
                 margin-right: 5% ;
+                &-link{
+                    color: black;
+                    text-decoration: none;
+                }
+                
             }
             &-btn-delete{
                 @include btnStyle();

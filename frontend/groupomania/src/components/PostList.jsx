@@ -7,12 +7,12 @@ import {faThumbsDown, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 
 function PostList(){
-    const [likes, setLikes] = useState({});
-    const [isClicked, setIsClicked] = useState(false);
-   const [post,setPost] = useState();
-   const [textAreaData,setTextarea] = useState();
-   const user = JSON.parse(localStorage.getItem('user'))
-   const postData = {
+    const [post,setPost] = useState();
+    const [likes, setLikes] = useState({ likes : 0 , isClickedLike : false  });
+   
+    const [textAreaData,setTextarea] = useState();
+    const user = JSON.parse(localStorage.getItem('user'))
+    const postData = {
     userId: user.userId,
     token: user.token,
     }
@@ -53,20 +53,34 @@ function PostList(){
    
 const handleClick = (e) => {
     const index = parseInt(e.target.value, 10)
-    console.log(index)
-    if (!isClicked){
-        setLikes ( { ...likes, [index]: (post[index].likes -1) })
+    if(likes.isClickedLike == false){
+        setLikes({ ...likes, likes : (post[index].likes + 1), isClicked : true})
         
     }
     else{
-        setLikes ( { ...likes, [index]: (post[index].likes +1) })
-        
+        setLikes({ ...likes, likes : (post[index].likes - 1), isClicked : false})
     }
-    setIsClicked(!isClicked)
-    console.log(likes)
-
 }
-    
+const likeApi = async (e) =>{
+    e.preventDefault()
+    const index = parseInt(e.target[0].value, 10)
+    console.log(e.target[0].value)
+    const Data = {
+        userId : user.userId,
+        like : likes.likes,
+        isClicked : likes.isClicked
+    }
+    const response = await fetch(`http://localhost:3000/post/:`+ post[index]._id +'/like',{
+        method :'POST',
+        headers:{
+            'content-Type':'application/json',
+            'Authorization': 'Bearer ' + user.token,
+        },
+        body: JSON.stringify(Data)
+    })
+    window.location.reload();
+}
+
 useEffect(() => {
     getApiData();
   }, []);
@@ -80,11 +94,12 @@ return(
             </div>
             <div className="grp-post-block-2">
                 <div className="grp-post-block-2-btn-block-1">
-                        <button className={`grp-post-block-2-btn-like-${isClicked && 'liked'}`} onClick={handleClick} value={index}><span>{ ` ${likes.index}` }</span><FontAwesomeIcon className="grp-post-block-2-btn-like-icon" icon={faThumbsUp} />J'aime</button>
-                        <button className="grp-post-block-2-btn-dislike"><FontAwesomeIcon className="grp-post-block-2-btn-dislike-icon" icon={faThumbsDown} />j'aime pas</button>
+                        <form onSubmit={likeApi} >
+                            <button className={`grp-post-block-2-btn-like-${ post.isClicked &&'liked'}`} type ="submit" onClick={handleClick} value={index}><span>{ ` ${post.likes}` }</span><FontAwesomeIcon className={`grp-post-block-2-btn-like-${ post.isClicked &&'liked'}-icon`} icon={faThumbsUp} />J'aime</button>
+                        </form>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">
-                        <button className="grp-post-block-2-btn-custom"><Link className="grp-account-form-btn" to={"/dashboard/listmodify?"+(post._id)}>modifier</Link></button>
+                        <button className="grp-post-block-2-btn-custom"><Link className="grp-post-block-2-btn-custom-link" to={"/dashboard/listmodify?"+(post._id)}>modifier</Link></button>
                         <button className='grp-post-block-2-btn-delete' onClick={deleteApiData} value={index}>supprimer</button>
                 </div>
             </div>
