@@ -5,11 +5,11 @@ import '../styles/PostList.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faThumbsDown, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
+import { useAuth } from '../hooks/useAuth';
 
 function PostList(){
     const [post,setPost] = useState();
     const [likes, setLikes] = useState({ likes : 0 , isClickedLike : false  });
-   
     const [textAreaData,setTextarea] = useState();
     const user = JSON.parse(localStorage.getItem('user'))
     const postData = {
@@ -80,7 +80,7 @@ const likeApi = async (e) =>{
     })
     window.location.reload();
 }
-
+console.log(localStorage)
 useEffect(() => {
     getApiData();
   }, []);

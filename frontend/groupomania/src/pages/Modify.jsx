@@ -10,11 +10,22 @@ import "../styles/Modify.scss"
 export function Modify(){
     const [modifyPost,setModifyPost] = useState();
     const [textAreaData,setTextarea] = useState();
+    const [fileDataURL, setFileDataURL] = useState(null);
+    const imageMimeType = /image\/(png|jpg|jpeg)/i;
     const [image,setImage]= useState();
     const Url = window.location.href;
     const Id = Url.substring((Url.lastIndexOf('?') + 1));
     const user = JSON.parse(localStorage.getItem('user'))
     const handleImageChange = (e)=>{
+        const file = e.target.files[0]
+        if(!file.type.match(imageMimeType)) {
+           alert("Image mime type is not valid");
+           return;
+         }
+         setImage({
+            image: file
+        });
+        setFileDataURL(URL.createObjectURL(file))
         setImage({
             image: e.target.files[0]
         })
@@ -73,7 +84,7 @@ export function Modify(){
                     <input className='grp-body-file-modify-btn' type="file" onInput={handleImageChange}></input>
                     </label>
                     <textarea className='grp-body-texarea'type="textarea" onChange={handleTextAreaChange} >{modifyPost.postTextarea}</textarea>
-                    <button className='grp-body-btn'onClick={modifyApi}>Modifiez</button>
+                    <button className='grp-body-btn-modify'onClick={modifyApi}>Modifiez</button>
             </div>
             )}
         </div>
