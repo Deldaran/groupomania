@@ -1,6 +1,7 @@
 const Post = require('../models/Post.js');
 const fs = require('fs');
 const  mongoose = require('mongoose');
+const { post } = require('../routes/posts.js');
 
 exports.createPost = (req, res, next)=>{
     const thingObject = JSON.parse(req.body.data);
@@ -66,11 +67,11 @@ exports.createPost = (req, res, next)=>{
     });
   };
   exports.modifyPost = (req, res, next) => {
+    
     const thingObject = req.file ? {
         ...JSON.parse(req.body.data),
         postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body.data };
-    console.log(thingObject)
+    } : {...JSON.parse(req.body.data)};
     delete thingObject._userId;
     Post.findOne({_id: req.params.id.replace(':','')})
         .then((thing) => {
@@ -88,32 +89,30 @@ exports.createPost = (req, res, next)=>{
  };
  exports.likePost = (req, res, next) => {
   const PostId = req.params.id.replace(':','');
-
+  const isClicked = req.body.isClicked;
   const userId = req.body.userId;
   const like = req.body.like;
-  const isClicked = req.body.isClicked;
-
-  if (like === 1) {
-    Post.updateOne(
-      { _id: PostId },
-      {
-        $inc: {likes: like },
-        $set: {isClicked : isClicked },
-        $push: { usersLiked: userId },
-      }
-    )
-    
+  Post.findOne({ _id: PostId })
+  .then((post)=> {
+    if (like === 1 && !post.usersLiked.includes(userId)) {
+      Post.updateOne(
+        { _id: PostId },
+        {
+          $inc: {likes: +1 },
+          $set: {isClicked : isClicked },
+          $push: { usersLiked: userId },
+        }
+      )
       .then((post) => res.status(200).json({ message: "Post appréciée" }))
       .catch((error) => res.status(500).json({ error }));
-  }
+
+    }
   else {
-    Post.findOne({ _id: PostId })
-      .then((post) => {
         if (post.usersLiked.includes(userId)) {
           Post.updateOne(
             { _id: PostId },
             { $pull: { usersLiked: userId },
-              $set: {isClicked : !isClicked },
+            $set: {isClicked : !isClicked },
               $inc: { likes: -1 } 
               }
           )
@@ -122,7 +121,5 @@ exports.createPost = (req, res, next)=>{
             })
             .catch((error) => res.status(500).json({ error }));
         }
-      })
-      .catch((error) => res.status(401).json({ error }));
   }
-};
+})}

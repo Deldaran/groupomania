@@ -31,7 +31,6 @@ function Body() {
         });
         setFileDataURL(URL.createObjectURL(file))
     }
-    console.log(image.image)
     const creatpostData = async()=>{
         const formData = new FormData();
         formData.append("file", image.image)

@@ -10,6 +10,7 @@ import "../styles/Modify.scss"
 export function Modify(){
     const [modifyPost,setModifyPost] = useState();
     const [textAreaData,setTextarea] = useState();
+    const [imageShow,setImageShow] = useState();
     const [fileDataURL, setFileDataURL] = useState(null);
     const imageMimeType = /image\/(png|jpg|jpeg)/i;
     const [image,setImage]= useState();
@@ -22,12 +23,9 @@ export function Modify(){
            alert("Image mime type is not valid");
            return;
          }
-         setImage({
-            image: file
-        });
         setFileDataURL(URL.createObjectURL(file))
         setImage({
-            image: e.target.files[0]
+            image: file
         })
     }
     const handleTextAreaChange = (e)=>{
@@ -43,12 +41,14 @@ export function Modify(){
         })
         .then(res => res.json());
          setModifyPost([res])
+         setTextarea(res.postTextarea)
+         setImage({image : false})
+         setFileDataURL(res.postImage)
     }
 
     const modifyApi = async () =>{
        const formData = new FormData
        formData.append("file", image.image)
-       
         const Data = {
             postTextarea : textAreaData,
         }
@@ -78,13 +78,13 @@ export function Modify(){
             <Banner/>
             {modifyPost && modifyPost.map((modifyPost)=>
                 <div className='grp-body' key={modifyPost._id}>
-                    <img className='grp-body-img' src={modifyPost.postImage} />
+                    <img className='grp-body-img' src={fileDataURL} />
                     <label className="grp-body-file" >
                     Modifiez Image
                     <input className='grp-body-file-modify-btn' type="file" onInput={handleImageChange}></input>
                     </label>
-                    <textarea className='grp-body-texarea'type="textarea" onChange={handleTextAreaChange} >{modifyPost.postTextarea}</textarea>
-                    <button className='grp-body-btn-modify'onClick={modifyApi}>Modifiez</button>
+                    <textarea className='grp-body-texarea'type="textarea" onChange={handleTextAreaChange} value={textAreaData}></textarea>
+                    <button className='grp-body-btn-modify'onClick={modifyApi}><Link className='grp-body-btn-modify-link' to={'/dashboard/list'}>Modifiez</Link></button>
             </div>
             )}
         </div>

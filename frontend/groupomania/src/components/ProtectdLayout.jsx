@@ -9,7 +9,6 @@ export const ProtectedLayout = () => {
   const outlet = useOutlet();
     const verify = async ()=>{
       const token = user.token
-      console.log(token)
       const res = await fetch('http://localhost:3000/auth/verify', {
         method:'POST',
         headers:{
@@ -20,13 +19,11 @@ export const ProtectedLayout = () => {
       .then(res => res.json())
       setVerifyState(res)
     }
-    console.log(verifyState)
     useEffect(() => {
       verify();
     }, []);
-    console.log(verifyState)
 
-  if (!user &&!verifyState ) {
+  if (!user && !verifyState ) {
     return <Navigate to="/" />;
   }
 

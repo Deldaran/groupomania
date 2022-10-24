@@ -9,7 +9,7 @@ import { useAuth } from '../hooks/useAuth';
 
 function PostList(){
     const [post,setPost] = useState();
-    const [likes, setLikes] = useState({ likes : 0 , isClickedLike : false  });
+    const [likes, setLikes] = useState({likes : 0 , isClicked :false});
     const [textAreaData,setTextarea] = useState();
     const user = JSON.parse(localStorage.getItem('user'))
     const postData = {
@@ -28,8 +28,6 @@ function PostList(){
         .then((response => response.json()))
         setPost(response);
     }
-   
-
     const deleteApiData = async (e)=>{
         e.preventDefault()
         const searchItemIndex = parseInt(e.target.value, 10)
@@ -53,18 +51,19 @@ function PostList(){
    
 const handleClick = (e) => {
     const index = parseInt(e.target.value, 10)
-    if(likes.isClickedLike == false){
-        setLikes({ ...likes, likes : (post[index].likes + 1), isClicked : true})
+    console.log(post[index].isClicked)
+    if(likes.isClicked === false ){
         
+        setLikes({ ...likes, likes : (likes.likes + 1) , isClicked : true})
     }
     else{
-        setLikes({ ...likes, likes : (post[index].likes - 1), isClicked : false})
+        setLikes({ ...likes, likes : (likes.likes - 1), isClicked : false})
+        console.log(likes)
     }
 }
 const likeApi = async (e) =>{
     e.preventDefault()
     const index = parseInt(e.target[0].value, 10)
-    console.log(e.target[0].value)
     const Data = {
         userId : user.userId,
         like : likes.likes,
@@ -78,12 +77,10 @@ const likeApi = async (e) =>{
         },
         body: JSON.stringify(Data)
     })
-    window.location.reload();
 }
-console.log(localStorage)
 useEffect(() => {
     getApiData();
-  }, []);
+  }, [getApiData]);
 return(
     <div className='container'>
         {post && post.map((post,index)=>
@@ -95,7 +92,7 @@ return(
             <div className="grp-post-block-2">
                 <div className="grp-post-block-2-btn-block-1">
                         <form onSubmit={likeApi} >
-                            <button className={`grp-post-block-2-btn-like-${ post.isClicked &&'liked'}`} type ="submit" onClick={handleClick} value={index}><span>{ ` ${post.likes}` }</span><FontAwesomeIcon className={`grp-post-block-2-btn-like-${ post.isClicked &&'liked'}-icon`} icon={faThumbsUp} />J'aime</button>
+                            <button className={`grp-post-block-2-btn-like`} type ="submit" onClick={handleClick} value={index}><span>{ ` ${post.likes}` }</span><FontAwesomeIcon className={`grp-post-block-2-btn-like-icon`} icon={faThumbsUp} />J'aime</button>
                         </form>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">

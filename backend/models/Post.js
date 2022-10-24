@@ -5,8 +5,8 @@ const MongooseErrors = require('mongoose-errors')
 //model post
 const postModel = mongoose.Schema({
     userId: {type: String, require: true},
-    postImage:{type: String, require: true},
-    postImageDescription:{type: String,require: true},
+    postImage:{type: String,},
+    postImageDescription:{type: String,},
     postTextarea:{type: String,require: true},
     isClicked :{type : Boolean,},
     likes: {type: Number},

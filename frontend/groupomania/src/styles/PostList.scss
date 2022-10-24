@@ -49,20 +49,12 @@
                 width: 300px;
             }
             &-btn-like{
-                &-false{
                     @include btnStyle();
                     &-icon{
                         margin-right: 5px;
                         margin-left: 5px;
                     }
-                }
-                &-liked{
-                    @include btnStyle();
-                    &-icon{
-                        margin-right: 5px;
-                        color: rgb(4, 0, 253) ;
-                    }
-                }
+                
              
                
             }
