@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import "../styles/Log.scss"
 import logo from '../assets/icon-left-font.png'
 import {useAuth} from '../hooks/useAuth'
-
+//permet de connecter l'utilisateur 
 export function Login({setToken}) {
     const { login } = useAuth();
     const handleSubmit = (event) => {
@@ -31,6 +31,7 @@ export function Login({setToken}) {
             </div>
     )
 }
+//permet de créer l'utilisateur 
 export function SignUp(setToken){
     const { signUp } = useAuth();
     const handleSubmit = (event) => {

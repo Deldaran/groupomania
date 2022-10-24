@@ -2,7 +2,7 @@ import '../styles/Banner.scss'
 import logo from '../assets/icon-left-font.png'
 import { useAuth } from "../hooks/useAuth";
 
-
+//créé la bannier avec logo et compte
 export default function Banner(){
 const { logout} = useAuth();
 

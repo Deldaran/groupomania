@@ -1,3 +1,5 @@
+@import '../styles/variable-mixin.scss';
+
 .grp-account{
     display: flex;
     flex-direction: column;
@@ -19,7 +21,7 @@
             font-size: 15px;
             border: none;
             box-shadow: inset 0px 0px 2px;
-            background-color: #FD2D01;
+            background-color: $primary-color;
             text-decoration: none;
             margin-left: 10px;
             >a{

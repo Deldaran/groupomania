@@ -2,8 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
-
-
 //permet de s'inscrire tout en hashant le mot de passe 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -60,7 +58,7 @@ exports.login = (req, res, next) => {
         res.status(500).json({error});
     })
 };
-
+// verifie le token 
 exports.verifyToken = (req, res, next) => {
     try{
         const token = req.headers.authorization.split(' ')[2];

@@ -1,8 +1,11 @@
 const Post = require('../models/Post.js');
 const fs = require('fs');
+const path = require('path')
 const  mongoose = require('mongoose');
-const { post } = require('../routes/posts.js');
+const { post, patch } = require('../routes/posts.js');
 
+const adminUser = '63444c86b77c8f85d6ae68d5'
+//Permet de créer un post
 exports.createPost = (req, res, next)=>{
     const thingObject = JSON.parse(req.body.data);
     delete thingObject._id;
@@ -19,6 +22,7 @@ exports.createPost = (req, res, next)=>{
     .then(() => { res.status(201).json({message: 'post envoyé !'})})
     .catch(error => { res.status(400).json( { error })})
  };
+ //Permet de récuprer les informations d'un post 
  exports.getOnePost = (req, res, next) => {
   Post.findOne({ _id :req.params.id.replace(':','')})
   .then(
@@ -33,7 +37,7 @@ exports.createPost = (req, res, next)=>{
     }
   );
 };
- 
+ //permet de récuperer les postes
  exports.getAllPosts = (req, res, next) => {
     Post.find().then(
       (things) => {
@@ -47,25 +51,30 @@ exports.createPost = (req, res, next)=>{
       }
     );
   };
+  // permet de supprimer un post
   exports.deletePost = async (req, res, next) => {
     await Post.findOne({ _id :req.params.id.replace(':','')})
     .then(thing => {
-        if (thing.userId != req.auth.userId) {
-            res.status(401).json({message: 'Not authorized'});
+        if (thing.userId === req.auth.userId || req.auth.userId === adminUser) {
+          const filename = thing.postImage.split('/images/')[1];
+          console.log()
+          fs.unlink(`images/${filename}`, async (err) => {
+            if(err){
+              res.status(500).json({ error: error });
+            }
+            await Post.deleteOne({ _id :req.params.id.replace(':','')})
+                .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
+                .catch(error => res.status(401).json({ error }));
+          });
         } else {
-            const filename = thing.postImage.split('/images/')[1];
-            //problème de chemin 
-            fs.unlink(`images/${filename}`, async () => {
-                await Post.deleteOne({ _id :req.params.id.replace(':','')})
-                    .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
-                    .catch(error => res.status(401).json({ error }));
-            });
+          res.status(401).json({message: 'Not authorized'});
         }
     })
     .catch( error => {
         res.status(500).json({ error: error });
     });
   };
+  // permet de modifier un post
   exports.modifyPost = (req, res, next) => {
     
     const thingObject = req.file ? {
@@ -75,18 +84,19 @@ exports.createPost = (req, res, next)=>{
     delete thingObject._userId;
     Post.findOne({_id: req.params.id.replace(':','')})
         .then((thing) => {
-            if (thing.userId != req.auth.userId) {
-                res.status(401).json({ message : 'Not authorized'});
+            if (thing.userId === req.auth.userId || req.auth.userId === adminUser) {
+              Post.updateOne({ _id: req.params.id.replace(':','')}, { ...thingObject, _id: req.params.id.replace(':','')})
+              .then(() => res.status(200).json({message : 'Objet modifié!'}))
+              .catch(error => res.status(401).json({ error }));
             } else {
-                Post.updateOne({ _id: req.params.id.replace(':','')}, { ...thingObject, _id: req.params.id.replace(':','')})
-                .then(() => res.status(200).json({message : 'Objet modifié!'}))
-                .catch(error => res.status(401).json({ error }));
+              res.status(401).json({ message : 'Not authorized'});
             }
         })
         .catch((error) => {
             res.status(400).json({ error });
         });
  };
+ //permet d'aimer un post
  exports.likePost = (req, res, next) => {
   const PostId = req.params.id.replace(':','');
   const isClicked = req.body.isClicked;

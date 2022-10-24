@@ -1,3 +1,5 @@
+@import '../styles/variable-mixin.scss';
+
 .grp{
     &-body{
         position: absolute;
@@ -7,7 +9,7 @@
         min-height:100%;
         width: 50%;
         box-shadow: inset 0px 0px 5px rgb(65, 65, 65);
-        background-color: #4e516631 ;
+        background-color: $secondary-color ;
         &-post{
             display: flex;
             flex-direction: column;
@@ -31,7 +33,7 @@
                 box-sizing: border-box;
                 border-radius: 4px;
                 border-bottom-left-radius: 0px;
-                background-color: #f8f8f8;
+                background-color: $tertiary-color;
                 resize: none;
                 border: none;
                 box-shadow: inset 0px 0px 2px;
@@ -41,25 +43,14 @@
             display: flex;
             margin-left: 10%;
             &-file{
-                margin-right: 2%;
-                margin-top: 10px;
-                padding:10px ;
-                border: none;
-                border-radius: 20px;
-                box-shadow: inset 0px 0px 2px;
-                background-color: #FD2D01;
+                @include btn-body();
                 &-upload{
                     display: none;
                 }
             }
             &-post{
-                margin-right: 2%;
-                margin-top: 10px;
-                padding:10px ;
-                border: none;
-                border-radius: 20px;
-                box-shadow: inset 0px 0px 2px;
-                background-color: #FD2D01;
+                @include btn-body();
+               
             }
         }
     }

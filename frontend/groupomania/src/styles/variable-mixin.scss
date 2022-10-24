@@ -1,0 +1,20 @@
+$primary-color: #FD2D01;
+$secondary-color:#FFD7D7;
+$tertiary-color:#f8f8f8;
+
+@mixin btn-body {
+    margin-right: 2%;
+    margin-top: 10px;
+    padding:10px ;
+    border: none;
+    border-radius: 20px;
+    box-shadow: inset 0px 0px 2px;
+    background-color: $primary-color;
+}
+@mixin btnStyle {
+    border: none;
+                border-radius: 20px;
+                box-shadow: inset 0px 0px 2px;
+                background-color: $primary-color;
+                padding: 10px;
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+//permet de stocker le user dans le localstorage
 export const useLocalStorage = (keyName, defaultValue) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {

@@ -1,10 +1,4 @@
-@mixin btnStyle {
-    border: none;
-                border-radius: 20px;
-                box-shadow: inset 0px 0px 2px;
-                background-color: #FD2D01;
-                padding: 10px;
-}
+@import '../styles/variable-mixin.scss';
 
 .container{
     
@@ -35,7 +29,7 @@
                 height: 150px;
                 margin-top: 6%;
                 resize: none;
-                background-color: #f8f8f8;
+                background-color: $tertiary-color;
                 box-shadow: inset 0px 0px 5px rgb(122, 122, 122);
             
             }

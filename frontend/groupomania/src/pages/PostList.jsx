@@ -1,23 +1,20 @@
-import image from '../assets/Gull_portrait_ca_usa.jpg'
 import { useState } from 'react';
 import { useEffect } from 'react'
 import '../styles/PostList.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faThumbsDown, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
+import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
-import { useAuth } from '../hooks/useAuth';
 
 function PostList(){
     const [post,setPost] = useState();
     const [likes, setLikes] = useState({likes : 0 , isClicked :false});
-    const [textAreaData,setTextarea] = useState();
     const user = JSON.parse(localStorage.getItem('user'))
     const postData = {
     userId: user.userId,
     token: user.token,
     }
+//récupere les données des post depuis le server
     const getApiData = async ()=>{
-    
         const response = await fetch("http://localhost:3000/post",{
             method:'GET',
             headers:{
@@ -28,6 +25,7 @@ function PostList(){
         .then((response => response.json()))
         setPost(response);
     }
+    // permet de suprimer le post
     const deleteApiData = async (e)=>{
         e.preventDefault()
         const searchItemIndex = parseInt(e.target.value, 10)
@@ -45,10 +43,9 @@ function PostList(){
         body: JSON.stringify(Data)
         })
         .then((res => res.json));
-        window.location.reload();
     }
 
-   
+//    permet d'aimer un post
 const handleClick = (e) => {
     const index = parseInt(e.target.value, 10)
     console.log(post[index].isClicked)

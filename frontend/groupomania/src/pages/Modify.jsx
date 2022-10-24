@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react"
 import { Link } from "react-router-dom";
-import Banner from "../components/Banner"
+import Banner from "./Banner"
 import "../styles/Modify.scss"
 
 
@@ -10,13 +10,13 @@ import "../styles/Modify.scss"
 export function Modify(){
     const [modifyPost,setModifyPost] = useState();
     const [textAreaData,setTextarea] = useState();
-    const [imageShow,setImageShow] = useState();
     const [fileDataURL, setFileDataURL] = useState(null);
     const imageMimeType = /image\/(png|jpg|jpeg)/i;
     const [image,setImage]= useState();
     const Url = window.location.href;
     const Id = Url.substring((Url.lastIndexOf('?') + 1));
     const user = JSON.parse(localStorage.getItem('user'))
+    //permet de récupérer l'image choisi
     const handleImageChange = (e)=>{
         const file = e.target.files[0]
         if(!file.type.match(imageMimeType)) {
@@ -28,9 +28,11 @@ export function Modify(){
             image: file
         })
     }
+    //récupere le text
     const handleTextAreaChange = (e)=>{
         setTextarea(e.target.value)
     }
+    //recuper les données du serveur
     const getOneApi = async () =>{
         const res = await fetch("http://localhost:3000/post/:"+ Id,{
             method:"GET",
@@ -45,9 +47,9 @@ export function Modify(){
          setImage({image : false})
          setFileDataURL(res.postImage)
     }
-
+    //permet la modification du post
     const modifyApi = async () =>{
-       const formData = new FormData
+       const formData = new FormData()
        formData.append("file", image.image)
         const Data = {
             postTextarea : textAreaData,

@@ -4,6 +4,7 @@ import { useLocalStorage } from "./useLocalStorage";
 
 
 const AuthContext = createContext();
+// envoie la requête de création de compte
 async function signUpUser(credentials){
   return fetch('http://localhost:3000/auth/signup',{
       method: 'POST',
@@ -15,16 +16,18 @@ async function signUpUser(credentials){
       .then(data => data.json())
       
 }
+//envoi la requête de connection
 async function loginUser(credentials){
   return fetch('http://localhost:3000/auth/login',{
       method : 'POST',
       headers:{'content-Type':'application/json'},
       body: JSON.stringify(credentials)
   })
-  .then(res =>  res.json())
+  .then(data =>  data.json())
 
 }
 
+// créer le stockage de user dans le localStorage pour garder la connection
 export const AuthProvider = ({ children }) => {
   
   const [user, setUser] = useLocalStorage("user", null);
@@ -38,20 +41,21 @@ export const AuthProvider = ({ children }) => {
         navigate("/", { replace: true });
       }
       else{
-        setUser(restoken);
+      setUser(restoken);
       navigate("/dashboard/list");
       }
   };
   const signUp = async (data) => {
     let restoken = await signUpUser(data)
-    data={data,restoken}
-    if(restoken === "true"){
-      setUser((data));
-      navigate("/dashboard/list");
+    data={restoken}
+    if(restoken === false){
+      setUser(null)
+        navigate("/SignUp", { replace: true });
       }
       else{
-        setUser(null)
-        navigate("/SignUp", { replace: true });
+        setUser(restoken);
+        navigate("/dashboard/list");
+       
       }
   };
   const logout = () => {
