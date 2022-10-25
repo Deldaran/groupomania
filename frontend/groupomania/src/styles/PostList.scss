@@ -18,11 +18,17 @@
             width: 100%;
             padding-left: 5%;
             &-image{
+                @media(max-width:760px) {
+                    width: 40%;
+                }
                 width: 20%;
                 height: 150px;
                 margin-top: 6%;
             }
             &-text-area{
+                @media(max-width:760px) {
+                    width: 50%;
+                }
                 margin-left: 1%;
                 padding-left: 1%;
                 width: 70%;
@@ -35,22 +41,32 @@
             }
         }
         &-2{
+            @media(max-width:760px) {
+                display: flex;
+                justify-content: center;
+                margin-top: -15px;
+            }
             display: flex;
             justify-content: space-between;
             &-btn-block-1{
+                @media(max-width:760px) {
+                    width: 100px;
+                }
                 text-align: left;
                 padding-left: 5%;
                 width: 300px;
             }
             &-btn-like{
+                @media(max-width:760px) {
+                    @include btn-body-smartphone();
+                    
+                }
                     @include btnStyle();
                     &-icon{
                         margin-right: 5px;
                         margin-left: 5px;
                     }
                 
-             
-               
             }
             &-btn-block-2{
                 padding-right: 5%;
@@ -58,6 +74,9 @@
                 text-align: right;
             }
             &-btn-custom{
+                @media(max-width:760px) {
+                    @include btn-body-smartphone();
+                }
                 @include btnStyle();
                 margin-right: 5% ;
                 &-link{
@@ -67,6 +86,9 @@
                 
             }
             &-btn-delete{
+                @media(max-width:760px) {
+                    @include btn-body-smartphone();
+                }
                 @include btnStyle();
             }
         }

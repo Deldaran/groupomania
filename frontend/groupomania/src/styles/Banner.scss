@@ -1,16 +1,33 @@
 @import '../styles/variable-mixin.scss';
 
 .grp-banner {
+    @media(max-width:760px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: black;
     &-logo{
+        @media(max-width:760px) {
+            height: 200px;
+            width: 250px;
+            margin-left: auto;
+            margin-right: 25%;
+        }
         height: 250px;
         width: 20%;
         text-align: left;
     }
     &-compte{
+        @media(max-width:760px) {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            margin-top: -20px;
+        }
         margin-right: 2%;
         &-btn{
             border: none;

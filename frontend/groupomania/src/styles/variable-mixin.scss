@@ -11,6 +11,15 @@ $tertiary-color:#f8f8f8;
     box-shadow: inset 0px 0px 2px;
     background-color: $primary-color;
 }
+@mixin btn-body-smartphone {
+    margin-top: 5px;
+    padding:10px ;
+    border: none;
+    border-radius: 0px;
+    border-bottom-left-radius: 10px;
+    box-shadow: inset 0px 0px 2px;
+    background-color: $primary-color;
+}
 @mixin btnStyle {
     border: none;
                 border-radius: 20px;

@@ -2,6 +2,13 @@
 
 .grp{
     &-body{
+        @media(max-width:760px) {
+            position:relative;
+            width: 70%;
+            height: 100%;
+            margin-right: auto;
+            margin-left: auto;
+        }
         position: absolute;
         top: 0%;
         text-align: center;
@@ -11,11 +18,13 @@
         box-shadow: inset 0px 0px 5px rgb(65, 65, 65);
         background-color: $secondary-color ;
         &-post{
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
             &-preview{
                 img{
+                    margin-top: 10px;
                     max-height: 500px;
                     max-width: 100%;
                 }
@@ -43,12 +52,18 @@
             display: flex;
             margin-left: 10%;
             &-file{
+                @media(max-width:760px) {
+                    @include btn-body-smartphone();
+                }
                 @include btn-body();
                 &-upload{
                     display: none;
                 }
             }
             &-post{
+                @media(max-width:760px) {
+                    @include btn-body-smartphone();
+                }
                 @include btn-body();
                
             }
