@@ -5,6 +5,7 @@ const  mongoose = require('mongoose');
 const { post, patch } = require('../routes/posts.js');
 
 const adminUser = '63444c86b77c8f85d6ae68d5'
+
 //Permet de créer un post
 exports.createPost = (req, res, next)=>{
     const thingObject = JSON.parse(req.body.data);

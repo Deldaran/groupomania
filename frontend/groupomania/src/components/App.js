@@ -1,4 +1,5 @@
 import Banner from "../pages/Banner";
+import '../styles/index.scss'
 import { Login, SignUp} from "../pages/Login";
 import {Modify} from "../pages/Modify"
 import Body from "../pages/Body";
