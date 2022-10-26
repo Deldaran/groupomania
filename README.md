@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Run the following scripts in order for developpers
-## Scripts lunch
+## Scripts launch
 
 In the backend directory, run:
 ### `npm install`
