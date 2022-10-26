@@ -9,9 +9,14 @@ In the backend directory, run:
 ### `npm install`
 And:
 ### `nodemon start`
+The serve must run in port:3000
 
 After, you go in the frontend directory and run :
 
 ### `npm install`
 And:
 ### `npm start`
+
+the application can run in any port
+
+
