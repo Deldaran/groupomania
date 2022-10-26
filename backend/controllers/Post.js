@@ -61,7 +61,7 @@ exports.createPost = (req, res, next)=>{
           console.log()
           fs.unlink(`images/${filename}`, async (err) => {
             if(err){
-              res.status(500).json({ error: error });
+              res.status(500).json({ error: err });
             }
             await Post.deleteOne({ _id :req.params.id.replace(':','')})
                 .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
@@ -77,7 +77,6 @@ exports.createPost = (req, res, next)=>{
   };
   // permet de modifier un post
   exports.modifyPost = (req, res, next) => {
-    
     const thingObject = req.file ? {
         ...JSON.parse(req.body.data),
         postImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`

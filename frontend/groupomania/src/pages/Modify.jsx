@@ -22,8 +22,8 @@ export function Modify(){
         if(!file.type.match(imageMimeType)) {
            alert("Image mime type is not valid");
            return;
-         }
-        setFileDataURL(URL.createObjectURL(file))
+         };
+        setFileDataURL(URL.createObjectURL(file));
         setImage({
             image: file
         })
@@ -42,10 +42,10 @@ export function Modify(){
             },
         })
         .then(res => res.json());
-         setModifyPost([res])
-         setTextarea(res.postTextarea)
-         setImage({image : false})
-         setFileDataURL(res.postImage)
+         setModifyPost([res]);
+         setTextarea(res.postTextarea);
+         setImage({image : false});
+         setFileDataURL(res.postImage);
     }
     //permet la modification du post
     const modifyApi = async () =>{
@@ -63,12 +63,13 @@ export function Modify(){
             },
             body : formData
         })
-        .then(modifyRes = modifyRes.json())
+        .then(modifyRes = modifyRes.json());
+        }
+        catch(err){
+            alert("Vous n'avez pas le droit de modifier ce poste.");
+        }
         
-        }
-        catch(err){}
-        }
-
+    }
 
 
     useEffect(() => {

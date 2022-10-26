@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import '../styles/PostList.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
@@ -8,11 +8,12 @@ import { Link } from "react-router-dom"
 function PostList(){
     const [post,setPost] = useState();
     const [likes, setLikes] = useState({likes : 0 , isClicked :false});
-    const user = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user'));
     const postData = {
     userId: user.userId,
     token: user.token,
-    }
+    };
+
 //récupere les données des post depuis le server
     const getApiData = async ()=>{
         const response = await fetch("http://localhost:3000/post",{
@@ -22,19 +23,19 @@ function PostList(){
                 'Authorization': 'Bearer ' + postData.token
             }
         })
-        .then((response => response.json()))
+        .then((response => response.json()));
         setPost(response);
     }
     // permet de suprimer le post
     const deleteApiData = async (e)=>{
-        e.preventDefault()
-        const searchItemIndex = parseInt(e.target.value, 10)
+        e.preventDefault();
+        const searchItemIndex = parseInt(e.target.value, 10);
         const Data = {
             userId: user.userId,
             token: user.token,
             imageUrl:post[searchItemIndex].postImage,
         }
-        const resDelete = await fetch(`http://localhost:3000/post/:`+ post[searchItemIndex]._id,{
+        const res = await fetch(`http://localhost:3000/post/:`+ post[searchItemIndex]._id,{
         method:"DELETE",
         headers:{
             'content-Type':'application/json',
@@ -42,7 +43,12 @@ function PostList(){
         },
         body: JSON.stringify(Data)
         })
-        .then((res => res.json));
+        .then((res => res.json()));
+        window.location.reload();
+        if(res.message == 'Not authorized'){
+            alert("Vous n'avez pas l'autorisation du supprimer ce poste.");
+        };
+        
     }
 
 //    permet d'aimer un post
@@ -59,7 +65,6 @@ const handleClick = (e) => {
     }
 }
 const likeApi = async (e) =>{
-    e.preventDefault()
     const index = parseInt(e.target[0].value, 10)
     const Data = {
         userId : user.userId,
@@ -77,7 +82,7 @@ const likeApi = async (e) =>{
 }
 useEffect(() => {
     getApiData();
-  }, [getApiData]);
+  }, []);
 return(
     <div className='container'>
         {post && post.map((post,index)=>

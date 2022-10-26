@@ -28,13 +28,14 @@ function Body() {
         setImage({
             image: file
         });
-        setFileDataURL(URL.createObjectURL(file))
+        setFileDataURL(URL.createObjectURL(file));
     }
     //créer le post
-    const creatpostData = async()=>{
+    const creatpostData = async(event)=>{
+        event.preventDefault();
         const formData = new FormData();
-        formData.append("file", image.image)
-        const user = JSON.parse(localStorage.getItem('user'))
+        formData.append("file", image.image);
+        const user = JSON.parse(localStorage.getItem('user'));
         const postData = {
             userId: user.userId,
             token: user.token,
@@ -49,8 +50,13 @@ function Body() {
                 },
                 body: formData
                 })
+                .then(res => res.json());
         }
-        catch(err){}
+        catch(err){
+            alert("Veuillez insérer une image.");
+        }
+        window.location.reload();
+        
     }
     return(
         <div>

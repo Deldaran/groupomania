@@ -59,6 +59,6 @@ export function SignUp(setToken){
         </div>
     </div>
     )
-}
+};
 
 
