@@ -83,11 +83,11 @@ export function Modify(){
                 <div className='grp-body' key={modifyPost._id}>
                     <img className='grp-body-img' src={fileDataURL} />
                     <label className="grp-body-file" >
-                    Modifiez Image
+                    Modifier Image
                     <input className='grp-body-file-modify-btn' type="file" onInput={handleImageChange}></input>
                     </label>
                     <textarea className='grp-body-texarea'type="textarea" onChange={handleTextAreaChange} value={textAreaData}></textarea>
-                    <button className='grp-body-btn-modify'onClick={modifyApi}><Link className='grp-body-btn-modify-link' to={'/dashboard/list'}>Modifiez</Link></button>
+                    <button className='grp-body-btn-modify'onClick={modifyApi}><Link className='grp-body-btn-modify-link' to={'/dashboard/list'}>Modifier</Link></button>
             </div>
             )}
         </div>

@@ -64,10 +64,10 @@ function Body() {
             <div className='grp-body'>
                 <form className='grp-body-post' encType='multipart/form-data'  >
                 <div className='grp-body-post-preview'><img src={fileDataURL}/></div>
-                    <textarea className='grp-body-post-text'onChange={handleDataChange} name='grp-body-post-text' placeholder='écriver votre post'/>
+                    <textarea className='grp-body-post-text'onChange={handleDataChange} name='grp-body-post-text' placeholder='Écrivez votre post'/>
                     <div className='grp-body-btn'>
                         <label className='grp-body-btn-file'>
-                            insérer image
+                            Insérer image
                             <input  className='grp-body-btn-file-upload' type="file" onInput={handleImageChange} />
                         </label>
                         <button className='grp-body-btn-post' onClick={creatpostData} >Poster</button>

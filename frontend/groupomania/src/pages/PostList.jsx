@@ -98,8 +98,8 @@ return(
                         </form>
                 </div>
                 <div className="grp-post-block-2-btn-block-2">
-                        <button className="grp-post-block-2-btn-custom"><Link className="grp-post-block-2-btn-custom-link" to={"/dashboard/listmodify?"+(post._id)}>modifier</Link></button>
-                        <button className='grp-post-block-2-btn-delete' onClick={deleteApiData} value={index}>supprimer</button>
+                        <button className="grp-post-block-2-btn-custom"><Link className="grp-post-block-2-btn-custom-link" to={"/dashboard/listmodify?"+(post._id)}>Modifier</Link></button>
+                        <button className='grp-post-block-2-btn-delete' onClick={deleteApiData} value={index}>Supprimer</button>
                 </div>
             </div>
         </div>

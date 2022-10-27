@@ -19,8 +19,8 @@ export function Login({setToken}) {
                 <div className="grp-logo"><img src = {logo} alt= 'groupomania' className='grp-image-logo' /></div>
                 <h1>Connexion</h1>
                 <form className="grp-account-form" onSubmit={handleSubmit}>
-                    <input className="grp-account-form-input" name="email" type="email"  placeholder="entrer email"/>
-                    <input className="grp-account-form-input" name="password" type="password" placeholder="entrer le mots de passe" />
+                    <input className="grp-account-form-input" name="email" type="email"  placeholder="Entrer email"/>
+                    <input className="grp-account-form-input" name="password" type="password" placeholder="Entrer le mots de passe" />
                     <div className="grp-account-form-divbtn">
                         <button className="grp-account-form-btn" type="submit">Login</button>
                         <button className="grp-account-form-btn" ><Link to="/SignUp">SignUp</Link></button>
