@@ -14,7 +14,6 @@ async function signUpUser(credentials){
       body: JSON.stringify(credentials)
       })
       .then(data => data.json())
-      .catch(alert("Connexion refusé"))
       
 }
 //envoi la requête de connection
@@ -25,7 +24,6 @@ async function loginUser(credentials){
       body: JSON.stringify(credentials)
   })
   .then(data =>  data.json())
-  .catch(alert("Connexion refusé"))
 
 }
 
