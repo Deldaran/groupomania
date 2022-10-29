@@ -3,13 +3,17 @@ const mongoose = require('mongoose');
 const postRoutes = require('./routes/posts');
 const cors = require('cors')
 
-const mongooseUser = require('./models/securityVariable')
 const userRoutes = require('./routes/user');
 const path = require('path');
 
 
 const app = express();
+
 app.use(express.json());
+  
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const corsOptions ={
   origin:'*', 
@@ -25,9 +29,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', '*');
     next();
   });
-
   //Permet la connection au server Mongodb
-mongoose.connect('mongodb+srv://JorisFerrari:Yj32nx75@groupomania.np7s1gy.mongodb.net/test',
+mongoose.connect(`mongodb+srv://${process.env.USERMONGO}:${process.env.PASSWORDMONGO}@groupomania.np7s1gy.mongodb.net/test`,
 { useNewUrlParser: true,
   useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))

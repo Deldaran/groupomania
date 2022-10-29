@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }
 const User = require('../models/User');
 //permet de s'inscrire tout en hashant le mot de passe 
 exports.signup = (req, res, next) => {
@@ -18,8 +20,7 @@ exports.signup = (req, res, next) => {
                             '@611tuazvBLE',
                         )
         }))
-        .catch(error => {
-            res.status(400).json({error})});
+        .catch(error => {res.status(400).json(null)});
     })
     .catch(error => res.status(500).json({error}));
 };
@@ -37,9 +38,23 @@ exports.login = (req, res, next) => {
                 if(!valid){
                     res.status(401).json(false);
                 }
+                else if (req.body.email === process.env.USEREMAIL ){
+                    res.status(200).json({
+                        userId: user._id,
+                        admin: true,
+                        email: req.body.email,
+                        token: jwt.sign(
+                            {userId: user._id},
+                            '@611tuazvBLE',
+                        )
+                        
+                    });
+                }
                 else{
                     res.status(200).json({
                         userId: user._id,
+                        admin:false,
+                        email: req.body.email,
                         token: jwt.sign(
                             {userId: user._id},
                             '@611tuazvBLE',

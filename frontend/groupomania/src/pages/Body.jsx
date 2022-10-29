@@ -39,6 +39,7 @@ function Body() {
         const postData = {
             userId: user.userId,
             token: user.token,
+            email: user.email,
             postTextarea: data,
         }
         formData.append("data",JSON.stringify(postData))

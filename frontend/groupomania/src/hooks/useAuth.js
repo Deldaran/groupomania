@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   const signUp = async (data) => {
     let restoken = await signUpUser(data)
     data={restoken}
-    if(restoken === false){
+    if(data === null){
       setUser(null)
         navigate("/SignUp", { replace: true });
       }

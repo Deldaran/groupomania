@@ -3,8 +3,9 @@ const fs = require('fs');
 const path = require('path')
 const  mongoose = require('mongoose');
 const { post, patch } = require('../routes/posts.js');
-
-const adminUser = '63444c86b77c8f85d6ae68d5'
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 //Permet de créer un post
 exports.createPost = (req, res, next)=>{
@@ -56,7 +57,7 @@ exports.createPost = (req, res, next)=>{
   exports.deletePost = async (req, res, next) => {
     await Post.findOne({ _id :req.params.id.replace(':','')})
     .then(thing => {
-        if (thing.userId === req.auth.userId || req.auth.userId === adminUser) {
+        if (thing.userId === req.auth.userId || req.auth.userId === process.env.USERADMIN) {
           const filename = thing.postImage.split('/images/')[1];
           console.log()
           fs.unlink(`images/${filename}`, async (err) => {
@@ -84,7 +85,7 @@ exports.createPost = (req, res, next)=>{
     delete thingObject._userId;
     Post.findOne({_id: req.params.id.replace(':','')})
         .then((thing) => {
-            if (thing.userId === req.auth.userId || req.auth.userId === adminUser) {
+            if (thing.userId === req.auth.userId || req.auth.userId === process.env.USERADMIN) {
               Post.updateOne({ _id: req.params.id.replace(':','')}, { ...thingObject, _id: req.params.id.replace(':','')})
               .then(() => res.status(200).json({message : 'Objet modifié!'}))
               .catch(error => res.status(401).json({ error }));

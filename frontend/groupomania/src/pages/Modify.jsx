@@ -55,18 +55,16 @@ export function Modify(){
             postTextarea : textAreaData,
         }
         formData.append("data", JSON.stringify(Data))
-        try{
-        const modifyRes = await fetch("http://localhost:3000/post/:"+ Id,{
+         const modifyRes = await fetch("http://localhost:3000/post/:"+ Id,{
             method:"PUT",
             headers:{
                 'Authorization': 'Bearer ' + user.token ,
             },
             body : formData
         })
-        .then(modifyRes = modifyRes.json());
-        }
-        catch(err){
-            alert("Vous n'avez pas le droit de modifier ce poste.");
+        .then(modifyRes => modifyRes.json());
+        if(modifyRes.message == 'Not authorized'){
+            alert("Vous n'avais pas le droit de modifier ce poste")
         }
         
     }

@@ -26,6 +26,7 @@ function PostList(){
         .then((response => response.json()));
         setPost(response);
     }
+    console.log(post)
     // permet de suprimer le post
     const deleteApiData = async (e)=>{
         e.preventDefault();
@@ -87,6 +88,7 @@ return(
     <div className='container'>
         {post && post.map((post,index)=>
         <div className="grp-post-block" key={post._id}>
+            <h1 className="grp-post-block-title">{post.email}</h1>
             <div className="grp-post-block-1">
                 <img className='grp-post-block-1-image' src={post.postImage} alt={post.postImageDescription}/>
                 <p className='grp-post-block-1-text-area' >{post.postTextarea}</p>
@@ -97,13 +99,13 @@ return(
                             <button className={`grp-post-block-2-btn-like`} type ="submit" onClick={handleClick} value={index}><span>{ ` ${post.likes}` }</span><FontAwesomeIcon className={`grp-post-block-2-btn-like-icon`} icon={faThumbsUp} />J'aime</button>
                         </form>
                 </div>
-                <div className="grp-post-block-2-btn-block-2">
+                <div className={"grp-post-block-2-btn-block-2"+ ( post.userId === user.userId || user.admin ) }>
                         <button className="grp-post-block-2-btn-custom"><Link className="grp-post-block-2-btn-custom-link" to={"/dashboard/listmodify?"+(post._id)}>Modifier</Link></button>
                         <button className='grp-post-block-2-btn-delete' onClick={deleteApiData} value={index}>Supprimer</button>
                 </div>
             </div>
         </div>
-        )}
+    )}
     </div>
 )
 }
